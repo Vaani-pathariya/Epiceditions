@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "../_components/Logo";
 import toast from "react-hot-toast";
-
+import Link from "next/link";
 export default function login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -27,6 +27,7 @@ export default function login() {
         .post("/api/users/login", user)
         .then((response) => {
           console.log("Login successful", response.data);
+          router.push("/allreviews");
         })
         .catch((error) => {
           console.log("Login failed", error.message);
@@ -34,7 +35,6 @@ export default function login() {
         })
         .finally(() => {
           setLoading(false);
-          router.push("/allreviews");
         }),
       {
         loading: "Signup request initiated",
@@ -80,6 +80,7 @@ export default function login() {
       >
         {disabledButton ? "No Login" : "Login"}
       </button>
+      <Link href={"/signup"}><button className="bg-chocolate text-white p-2 rounded-md my-4 w-2/3">Signup here</button></Link>
     </div>
   );
 }
